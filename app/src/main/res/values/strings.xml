@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVCC</string>
+    <string name="label_button">ronda</string>
+    <string name="start">comienza</string>
+</resources>
