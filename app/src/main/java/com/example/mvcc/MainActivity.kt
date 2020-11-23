@@ -21,21 +21,28 @@ class MainActivity : AppCompatActivity() {
 
         val miModelo by viewModels<MyViewModel>()
 
-        /*val texto = findViewById<TextView>(R.id.textRonda)
-        texto.text = miModelo.ronda.value.toString()*/
+        val texto = findViewById<TextView>(R.id.textRonda)
+        texto.text = miModelo.ronda.value.toString()
 
 
-// observamos cambios en ronda y actualizamos textView
+        // observamos cambios en ronda y actualizamos textView
         miModelo.ronda.observe(this, Observer {
                 nuevaRonda -> textRonda.text = nuevaRonda.toString()
         })
 
-        sumarRonda.setOnClickListener {
-            miModelo.sumarRonda()
-        }
-        comienzo.setOnClickListener {
-            miModelo.ronda.value=0
-        }
-
+        //observamos cambios en msjBoton y actualizamos texto del Button
+        miModelo.msjBoton.observe(this, Observer { nuevoMsg ->
+            comienzo.text = nuevoMsg
+            })
+            miModelo.botonEnable.observe(this, Observer { estadoBoton ->
+                sumarRonda.isEnabled = estadoBoton
+            })
+            sumarRonda.setOnClickListener {
+                miModelo.sumarRonda()
+            }
+            comienzo.setOnClickListener {
+                miModelo.ronda.value = 0
+                miModelo.salidaLog()
+            }
     }
 }
